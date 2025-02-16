@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "495226974596",
+    "project_id": "login-getx-dad01",
+    "storage_bucket": "login-getx-dad01.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:495226974596:android:287deb7e11043b627aedd1",
+        "android_client_info": {
+          "package_name": "com.faqihasyari.first_getx"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVOuq0fRqErA1KdEPbmUSGGuyQ1CZsfb4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

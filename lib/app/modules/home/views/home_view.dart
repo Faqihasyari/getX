@@ -9,9 +9,9 @@ import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
   final AuthController authC = Get.find<AuthController>();
+  final ButtonController controller2 = Get.put(ButtonController());
   HomeView({super.key});
 
-  @override
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,10 +25,48 @@ class HomeView extends GetView<HomeController> {
             Text('SIGN IN ANONYMOUSLY'),
 
             //STATUS
-            Obx(() {
-              return Text(
-                  'Status: ${authC.user.value != null ? 'Signed in as ${authC.user.value!.uid}' : 'Signed Out'}');
-            })
+            
+              StreamBuilder(stream: FirebaseAuth.instance.userChanges(), builder: (context, snapshot){
+                if(snapshot.hasData){
+                  return Text('Signed in as ${snapshot.data?.uid}');
+                } else {
+                  return Text('Signed out');
+                }
+              }),
+            
+            SizedBox(
+              height: 15,
+            ),
+
+            //SIGNIN BUTTON
+            SizedBox(
+              width: 150,
+              child: ElevatedButton(
+                    onPressed: (){
+                      if(FirebaseAuth.instance.currentUser != null){
+                        FirebaseAuth.instance.signOut();
+                      } else {
+                        FirebaseAuth.instance.signInAnonymously();
+                      }
+                      
+                    }  ,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: controller2.isPressed.value ? Colors.green : Colors.red,
+                      foregroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)
+                      )
+                    ),
+                    child:
+                        StreamBuilder(stream: FirebaseAuth.instance.userChanges(), builder: (context, snapshot){
+                          if(snapshot.hasData){
+                            return Text('Sign Out');
+                          } else {
+                            return Text('Sign In');
+                          }
+                        })),
+              
+            )
           ],
         ),
       ),
